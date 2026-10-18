@@ -36,10 +36,11 @@ app = FastAPI(
 )
 app.middleware("http")(guarded_request)
 
-# CORS setup for frontend development
+# CORS setup for frontend development and production deployments (Vercel & Render)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.onrender\.com|http://localhost:.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
